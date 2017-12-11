@@ -124,9 +124,7 @@ public class csvFileReader {
 		String wlSymbol2 = "";
 		HashSet<String> checkDP = new HashSet<String>();
 		ArrayList<String> checkWLNameDP = new ArrayList<String>();	
-		HashSet<String> checkWLCount = new HashSet<String>(); 
-		HashSet<String> checkWLMaxSymbolCount = new HashSet<String>();
-		HashSet<String> checkWLMaxWLCount = new HashSet<String>();
+		HashSet<String> checkWLCount = new HashSet<String>();		
 		Integer WLDPCounter = 0;
 		boolean badSymbol = false;
 		Integer WLSymbCount = 0;
@@ -241,8 +239,7 @@ public class csvFileReader {
 																
 																writerList.write(seqListP + "~[" + cleanStringList(currentline, wlName1));
 																writerList.newLine();
-															} else {
-																checkWLMaxWLCount.add(key1AcctId.toString());
+															} else {																
 																writerDiscard.write(cleanStringDiscard(currentline,"Max WL for Acc "+ key1AcctId));
 																writerDiscard.newLine();
 															}
@@ -270,8 +267,7 @@ public class csvFileReader {
 															+ cleanStringSymbol(currentline));
 													writerSymbol.newLine();
 												}
-											} else {
-												checkWLMaxSymbolCount.add(wlKey1WlId);
+											} else {												
 												writerDiscard.write(cleanStringDiscard(currentline, "Max Sym for WLID "+ wlKey1WlId));
 												writerDiscard.newLine();
 											}
@@ -287,9 +283,11 @@ public class csvFileReader {
 									}
 								} catch (FileNotFoundException e) {
 									System.out.println("Problem reading Input File");
+									System.exit(-1);
 								} catch (ArrayIndexOutOfBoundsException e) {
 									System.out.println("Either Account Id or Symbol has buggy data");
-								} finally {
+									System.exit(-1);
+								} finally {									
 									if (inputStream != null) {
 										inputStream.close();
 									}
@@ -305,19 +303,24 @@ public class csvFileReader {
 								}
 							} catch (Exception e) {
 								e.printStackTrace();
+								System.exit(-1);
 							}
 						} catch (Exception e) {
 							e.printStackTrace();
+							System.exit(-1);
 						}
 					} catch (Exception e) {
 						e.printStackTrace();
+						System.exit(-1);
 					}
 				} else {
 					System.out.println("Sequence Number are Invalid");
+					System.exit(-1);
 				}
 			
 		} catch (NullPointerException e) {
 			System.out.println("Required Parameters are Invalid");
+			System.exit(-1);
 		}
 		}
 
